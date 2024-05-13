@@ -1,0 +1,16 @@
+<h1><%= @diary.date.strftime('%Y年%m月%d日') %></h1>
+
+<%= form_with(model: @diary, local: true, data: { turbo: false }) do |form| %>
+  <div>
+    <%= form.label :content, "日記" %><br>
+    <%= form.text_area :content, rows: 5, class: "form-control" %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "編集", class: "btn btn-primary" %>
+  </div>
+<% end %>
+
+<% if @diary.persisted? %>
+  <%= button_to '削除', diary_path(@diary), method: :delete, data: { turbo: false, confirm: '本当に削除しますか？' }, class: "btn btn-danger", form_class: 'delete-button' %>
+<% end %>

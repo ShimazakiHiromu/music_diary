@@ -1,0 +1,12 @@
+<h1>日記の編集</h1>
+
+<%= form_with(model: @diary, local: true, data: { turbo: false }) do |form| %>
+  <div>
+    <%= form.label :content, "日記" %><br>
+    <%= form.text_area :content, rows: 5, class: "form-control" %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "更新", class: "btn btn-primary" %>
+  </div>
+<% end %>

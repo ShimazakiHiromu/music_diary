@@ -1,0 +1,178 @@
+@import 'bootstrap/scss/bootstrap';
+@import 'bootstrap-icons/font/bootstrap-icons';
+
+html, body {
+    height: 100%; /* 全体の高さをビューポートの100%に設定 */
+    margin: 0; /* マージンをリセット */
+    padding: 0; /* パディングをリセット */
+    display: flex; /* Flexboxを有効化 */
+    flex-direction: column; /* 子要素を縦に並べる */
+    font-family: 'Roboto', sans-serif; /* フォントをRobotoに設定 */
+    background-color: #f8f9fa; /* 背景を淡いグレーに設定 */
+    color: #343a40; /* 文字色をダークグレーに設定 */
+  }
+  
+  .wrapper {
+    flex: 1; /* 余分なスペースを埋める */
+    display: flex;
+    flex-direction: column;
+    min-height: 0; /* ミニマムハイトを0に設定し、フレックスアイテムとして動作させる */
+  }
+  
+  .content {
+    flex: 1; /* コンテンツを伸縮させるためにflexを使用 */
+    padding: 20px; /* 必要に応じてパディングを設定 */
+  }
+  
+  .main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 20px); /* マージンなどの余白を考慮して適切な値に調整 */
+    overflow-y: auto; /* コンテンツが画面より大きい場合にのみスクロールバーを表示 */
+  }
+  
+  .footer {
+    flex-shrink: 0; /* フッターが縮小しないように設定 */
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+  }
+  
+  .navbar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .navbar-toggler {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+  }
+  
+  .navbar-brand {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 0;
+  }
+  
+  @media (max-width: 991px) {
+    .navbar-brand {
+      position: static;
+      transform: none;
+    }
+    .navbar-collapse {
+      position: fixed;
+      top: 70px;
+      right: 0;
+      width: 30%;
+      overflow-y: auto;
+      background-color: white;
+    }
+  }
+  
+  .background-image-top {
+    background-image: url('top_log.png');
+    background-size: contain;
+    background-position: center;
+    height: 100vh;
+    width: 100%;
+    background-repeat: no-repeat;
+  }
+  
+  .rounded-rectangle, .rounded-rectangle2 {
+    background-color: #333;
+    color: white !important; 
+    padding: 10px 20px;
+    border-radius: 10px;
+  }
+  
+  .btn-custom {
+    background-color: white;
+    color: black;
+    border: 1px solid #ccc;
+    transition: all 0.3s ease;
+      
+  }
+      
+  .btn-custom:hover {
+    box-shadow: 0 4px 8px rgba(29, 29, 29, 0.2); 
+    transform: translateY(-5px); 
+    background-color: white; 
+    color: black;
+  }
+  
+  .footer .container {
+    width: 80%; /* コンテナの幅を全体の80%に設定 */
+    margin: 0 auto; /* 中央寄せ */
+  }
+  
+  .footer-links {
+    list-style: none; /* リストのスタイルをなしに設定 */
+    padding: 0; /* リストのパディングをゼロに設定 */
+    text-align: center; /* リストを中央寄せ */
+  }
+  
+  .footer-links li {
+    display: inline; /* リストアイテムをインラインで表示 */
+    margin: 0 10px; /* リストアイテムの間にマージンを設定 */
+  }
+  
+  .footer-links a {
+    color: #fff; /* リンクの色を白に設定 */
+    text-decoration: none; /* 下線を消す */
+    transition: color 0.3s; /* 色変更のアニメーションを設定 */
+  }
+  
+  .footer-links a:hover {
+    color: #ccc; /* ホバー時のリンクの色を明るいグレーに設定 */
+  }
+  
+  /* 追加部分: モダンなスタイルを適用 */
+  h1, h2, h3, h4, h5, h6 {
+    color: #212529; /* 見出しの文字色を濃いダークグレーに設定 */
+    font-weight: 700; /* 見出しのフォントウェイトを太く設定 */
+  }
+  
+  .form-control {
+    background-color: #fff; /* 入力フィールドの背景色を白に設定 */
+    border: 1px solid #ced4da; /* 境界線を淡いグレーに設定 */
+    border-radius: 0.25rem; /* 角を少し丸める */
+    padding: 0.5rem 1rem; /* パディングを設定 */
+    font-size: 1rem; /* フォントサイズを設定 */
+    color: #343a40; /* 文字色をダークグレーに設定 */
+  }
+  
+  .form-control:focus {
+    border-color: #343a40; /* フォーカス時の境界線色をダークグレーに設定 */
+    box-shadow: none; /* ボックスシャドウを無効にする */
+  }
+  
+  .btn-primary {
+    background-color: #343a40; /* ボタンの背景色をダークグレーに設定 */
+    border: none; /* ボーダーを無効にする */
+    color: #fff; /* 文字色を白に設定 */
+    padding: 0.5rem 1rem; /* パディングを設定 */
+    font-size: 1rem; /* フォントサイズを設定 */
+    border-radius: 0.25rem; /* 角を少し丸める */
+    transition: background-color 0.3s; /* 背景色のトランジションを設定 */
+  }
+  
+  .btn-primary:hover {
+    background-color: #495057; /* ホバー時の背景色を少し明るくする */
+  }
+  
+  .actions {
+    display: flex;
+    justify-content: center; /* ボタンを中央揃えにする */
+  }
+
+  .alert.fade {
+    opacity: 0;
+    transition: opacity 0.5s ease-out;
+  }

@@ -1,0 +1,8 @@
+<% flash.each do |key, value| %>
+    <% bootstrap_class = case key.to_sym
+      when :notice then 'alert-success'
+      when :alert then 'alert-danger'
+      else 'alert-info'
+    end %>
+    <div class="alert <%= bootstrap_class %>"><%= value %></div>
+  <% end %>

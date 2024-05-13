@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Music Diary App</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag 'application.bootstrap', media: 'all', 'data-turbo-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbo-track': 'reload', defer: true %>  
+</head>
+<body>
+  <%= render 'layouts/header' %>
+
+  <div class="wrapper"> 
+    <div class="content"> 
+      <%= render 'layouts/flash' %>
+      <%= yield %> 
+    </div>
+    <%= render 'layouts/footer' %>
+  </div>
+</body>
+
+</html>

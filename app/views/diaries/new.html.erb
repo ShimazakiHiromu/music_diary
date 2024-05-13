@@ -1,0 +1,13 @@
+<h1><%= @diary.date.strftime('%Y年%m月%d日') %></h1>
+
+<%= form_with(model: @diary, local: true, data: { turbo: false }) do |form| %>
+  <%= form.hidden_field :date %>
+  <div>
+    <%= form.label :content, "日記" %><br>
+    <%= form.text_area :content, rows: 5, class: "form-control" %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "作成", class: "btn btn-primary" %>
+  </div>
+<% end %>
