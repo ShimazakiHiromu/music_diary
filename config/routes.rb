@@ -7,9 +7,12 @@ Rails.application.routes.draw do
 
   resources :users, only: [:new, :create, :destroy]
 
-  resources :diaries
+  resources :diaries do
+    collection do
+      get 'date/:date', to: 'diaries#redirect_to_diary_or_new', as: :redirect_to_diary_or_new
+    end
+  end
 
   get "up" => "rails/health#show", as: :rails_health_check
-
   root "top#index"
 end

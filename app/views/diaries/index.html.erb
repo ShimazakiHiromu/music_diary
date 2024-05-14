@@ -27,40 +27,38 @@
   <div id="calendar" data-dates='<%= @diary_dates.to_json %>'></div>
   <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      var calendarEl = document.getElementById('calendar');
-      var diaryDates = JSON.parse(calendarEl.dataset.dates);
-
-      var calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth',
-        locale: 'ja',
-        height: 'auto',
-        firstDay: 1,
-        headerToolbar: {
-          left: 'dayGridMonth,listMonth',
-          center: 'title',
-          right: 'today prev,next'
-        },
-        buttonText: {
-          today: '今月',
-          month: '月',
-          list: 'リスト'
-        },
-        noEventsContent: 'スケジュールはありません',
-        dateClick: function(info) {
-          const date = info.dateStr;
-          const diaryUrl = `/diaries/${date}`;
-          window.location.href = diaryUrl;
-        },
-        events: diaryDates.map(date => ({
-          title: '🎵',
-          start: date,
-          display: 'background'
-        }))
-      });
-
-      calendar.render();
+  document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    var diaryDates = JSON.parse(calendarEl.dataset.dates);
+  
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth',
+      locale: 'ja',
+      height: 'auto',
+      firstDay: 1,
+      headerToolbar: {
+        left: 'dayGridMonth,listMonth',
+        center: 'title',
+        right: 'today prev,next'
+      },
+      buttonText: {
+        today: '今月',
+        month: '月',
+        list: 'リスト'
+      },
+      noEventsContent: 'スケジュールはありません',
+      dateClick: function(info) {
+        window.location.href = `/diaries/date/${info.dateStr}`;  // サーバーにリクエストを送る
+      },
+      events: diaryDates.map(date => ({
+        title: '🎵',
+        start: date,
+        display: 'background'
+      }))
     });
+  
+    calendar.render();
+  });
   </script>
 </body>
 </html>

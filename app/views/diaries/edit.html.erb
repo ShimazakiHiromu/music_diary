@@ -1,7 +1,51 @@
 <h1>日記の編集</h1>
 
 <%= form_with(model: @diary, local: true, data: { turbo: false }) do |form| %>
-  <div>
+
+  <!-- 既存の動画の編集 -->
+  <% @diary.videos.each_with_index do |video, index| %>
+    <div style="float: <%= index.even? ? 'left' : 'right' %>; width: 50%;">
+      <%= form.fields_for :videos, video do |v_form| %>
+        <%= video_tag(video.video_file, controls: true, style: 'max-width: 100%; height: auto;') if video.video_file.attached? %>
+        <%= v_form.label :video_file, "動画#{index + 1}を変更" %><br>
+        <%= v_form.file_field :video_file %><br>
+
+        <%= v_form.label :artist_name, "アーティスト名" %>
+        <%= v_form.text_field :artist_name %><br>
+
+        <%= v_form.label :song_title, "曲名" %>
+        <%= v_form.text_field :song_title %><br>
+
+        <%= v_form.label :status, "ステータス" %>
+        <%= v_form.select :status, Video.statuses.keys.map { |status| [status.humanize, status] } %><br>
+
+        <%= v_form.label :_destroy, "この動画を削除" %>
+        <%= v_form.check_box :_destroy %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <!-- 新しい動画をアップロード（動画が2つ未満の場合のみ表示） -->
+  <% if @diary.videos.count < 2 %>
+    <div style="margin-top: 20px;">
+      <%= form.fields_for :videos, @diary.videos.build do |v_form| %>
+        <%= v_form.label :video_file, "新しい動画をアップロード" %><br>
+        <%= v_form.file_field :video_file %><br>
+
+        <%= v_form.label :artist_name, "アーティスト名" %>
+        <%= v_form.text_field :artist_name %><br>
+
+        <%= v_form.label :song_title, "曲名" %>
+        <%= v_form.text_field :song_title %><br>
+
+        <%= v_form.label :status, "ステータス" %>
+        <%= v_form.select :status, Video.statuses.keys.map { |status| [status.humanize, status] } %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <!-- 日記の内容 -->
+  <div style="clear: both; margin-top: 20px;">
     <%= form.label :content, "日記" %><br>
     <%= form.text_area :content, rows: 5, class: "form-control" %>
   </div>

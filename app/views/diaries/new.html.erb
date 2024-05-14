@@ -1,8 +1,25 @@
-<h1><%= @diary.date.strftime('%Y年%m月%d日') %></h1>
-
 <%= form_with(model: @diary, local: true, data: { turbo: false }) do |form| %>
   <%= form.hidden_field :date %>
-  <div>
+
+  <% @diary.videos.each_with_index do |video, index| %>
+    <%= form.fields_for :videos, video do |v_form| %>
+      <div style="float: <%= index.even? ? 'left' : 'right' %>; width: 50%;">
+        <%= v_form.label :video_file, "動画#{index + 1}" %><br>
+        <%= v_form.file_field :video_file %><br>  <!-- パラメータ名を :video_file に変更 -->
+
+        <%= v_form.label :artist_name, "アーティスト名" %>
+        <%= v_form.text_field :artist_name %><br>
+
+        <%= v_form.label :song_title, "曲名" %>
+        <%= v_form.text_field :song_title %><br>
+
+        <%= v_form.label :status, "ステータス" %>
+        <%= v_form.select :status, Video.statuses.keys.map { |status| [status.humanize, status] } %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <div style="clear: both;">
     <%= form.label :content, "日記" %><br>
     <%= form.text_area :content, rows: 5, class: "form-control" %>
   </div>

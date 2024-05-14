@@ -1,16 +1,31 @@
 <h1><%= @diary.date.strftime('%Y年%m月%d日') %></h1>
 
-<%= form_with(model: @diary, local: true, data: { turbo: false }) do |form| %>
-  <div>
-    <%= form.label :content, "日記" %><br>
-    <%= form.text_area :content, rows: 5, class: "form-control" %>
-  </div>
+<% if @diary.videos.any? %>
+  <% @diary.videos.each_with_index do |video, index| %>
+    <div style="margin-bottom: 20px;">
+      <h3>動画 <%= index + 1 %></h3>
+      <% if video.video_file.attached? %>
+        <!-- 動画の表示。適切なHTML5 videoタグを使用しています -->
+        <video width="320" height="240" controls>
+          <source src="<%= url_for(video.video_file) %>" type="<%= video.video_file.content_type %>">
+          Your browser does not support the video tag.
+        </video>
+      <% end %>
 
-  <div class="actions">
-    <%= form.submit "編集", class: "btn btn-primary" %>
-  </div>
+      <!-- 動画の詳細情報の表示 -->
+      <p>アーティスト名: <%= video.artist_name.presence || '未設定' %></p>
+      <p>曲名: <%= video.song_title.presence || '未設定' %></p>
+      <p>ステータス: <%= video.status.humanize %></p>
+    </div>
+  <% end %>
+<% else %>
+  <p>登録された動画はありません。</p>
 <% end %>
 
-<% if @diary.persisted? %>
-  <%= button_to '削除', diary_path(@diary), method: :delete, data: { turbo: false, confirm: '本当に削除しますか？' }, class: "btn btn-danger", form_class: 'delete-button' %>
-<% end %>
+<p>日記内容:</p>
+<p><%= @diary.content %></p>
+
+<div class="actions">
+  <%= link_to '編集', edit_diary_path(@diary), class: "btn btn-primary" %>
+  <%= button_to '削除', diary_path(@diary), method: :delete, data: { turbo: false, confirm: '本当に削除しますか？' }, class: "btn btn-danger" %>
+</div>
