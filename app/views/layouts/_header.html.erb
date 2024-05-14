@@ -5,7 +5,9 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="navbar-brand mx-auto">
-        <%= image_tag "logo.png", alt: "Music Diary App", height: "40" %>
+        <%= link_to (logged_in? ? diaries_path : root_path) do %>
+          <%= image_tag "logo.png", alt: "Music Diary App", height: "40" %>
+        <% end %>
       </div>
     </div>
     <div class="collapse navbar-collapse" id="navbarContent">

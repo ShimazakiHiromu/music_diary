@@ -21,7 +21,7 @@ gem 'jsbundling-rails'
 gem 'sassc'
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem 'turbo-rails'
-
+gem 'aws-sdk-s3', require: false
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem 'stimulus-rails'
 

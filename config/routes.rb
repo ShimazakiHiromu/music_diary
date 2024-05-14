@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
   get 'login', to: 'sessions#new', as: :login
   post 'logout', to: 'sessions#destroy', as: :logout
+  get 'terms-of-service', to: 'pages#terms_of_service', as: 'terms_of_service'
+  get 'privacy-policy', to: 'pages#privacy_policy', as: :privacy_policy
 
   resources :users, only: [:new, :create, :destroy]
 
