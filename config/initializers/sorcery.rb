@@ -6,7 +6,7 @@
 # Available submodules are: :user_activation, :http_basic_auth, :remember_me,
 # :reset_password, :session_timeout, :brute_force_protection, :activity_logging,
 # :magic_login, :external
-Rails.application.config.sorcery.submodules = []
+Rails.application.config.sorcery.submodules = [:remember_me, :reset_password, :user_activation]
 
 # Here you can configure each submodule's features.
 Rails.application.config.sorcery.configure do |config|
@@ -244,6 +244,20 @@ Rails.application.config.sorcery.configure do |config|
   # config.battlenet.scope = "openid"
   # --- user config ---
   config.user_config do |user|
+    user.remember_me_token_attribute_name = :remember_me_token
+    user.remember_me_token_expires_at_attribute_name = :remember_me_token_expires_at
+
+    # User Activation
+    user.activation_token_attribute_name = :activation_token
+    user.activation_state_attribute_name = :activation_state
+    user.activation_token_expires_at_attribute_name = :activation_token_expires_at
+    user.activation_token_expiration_period = 24.hours
+    user.user_activation_mailer = UserMailer
+    user.activation_needed_email_method_name = :activation_needed_email
+    user.activation_success_email_method_name = :activation_success_email
+
+    # Password Configuration for Test Environment
+    user.stretches = 1 if Rails.env.test?
     # -- core --
     # Specify username attributes, for example: [:username, :email].
     # Default: `[:email]`

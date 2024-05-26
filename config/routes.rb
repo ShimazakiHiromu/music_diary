@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 Rails.application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
   get 'login', to: 'sessions#new', as: :login
@@ -7,7 +5,14 @@ Rails.application.routes.draw do
   get 'terms-of-service', to: 'pages#terms_of_service', as: 'terms_of_service'
   get 'privacy-policy', to: 'pages#privacy_policy', as: :privacy_policy
 
-  resources :users, only: [:new, :create, :destroy]
+  resources :users, only: [:new, :create, :destroy] do
+    collection do
+      get 'activate/:token', to: 'users#activate', as: 'activate_user'
+      post 'register_email', to: 'users#register_email', as: 'registration'
+      post 'complete_registration/:token', to: 'users#complete_registration', as: 'complete_registration'
+      post 'resend_activation_mail/:id', to: 'users#resend_activation_mail', as: 'resend_activation_mail'
+    end
+  end
 
   resources :diaries do
     collection do
