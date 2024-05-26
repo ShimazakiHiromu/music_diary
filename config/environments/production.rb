@@ -74,7 +74,25 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "music_diary_production"
 
   config.action_mailer.perform_caching = false
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address:              ENV['SMTP_ADDRESS'],
+    port:                 ENV['SMTP_PORT'],
+    domain:               ENV['SMTP_DOMAIN'],
+    user_name:            ENV['SMTP_USER_NAME'],
+    password:             ENV['SMTP_PASSWORD'],
+    authentication:       'plain',
+    enable_starttls_auto: true
+  }
 
+  # 本番環境でのホスト名設定（フルドメインを使用することをお勧めします）
+  config.action_mailer.default_url_options = { host: "https://#{ENV['HOSTNAME']}" }
+
+  # エラー発生時にメール送信の失敗をレポートする
+  config.action_mailer.raise_delivery *誤送信エラー* = true
+
+  # SSLを通じたアクセスを強制する（既に設定されている場合はこれを無視）
+  config.force_ssl = true
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
