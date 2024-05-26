@@ -1,0 +1,21 @@
+<h1>アカウントの有効化</h1>
+
+<%= form_with url: complete_registration_users_path, local: true, data: { turbo: false } do |f| %>
+    <%= f.hidden_field :token, value: @token %>  <!-- この行を追加 -->
+    <div class="field">
+      <%= f.label :name, "ユーザー名" %>
+      <%= f.text_field :name, required: true %>
+    </div>
+    <div class="field">
+      <%= f.label :password, "パスワード" %>
+      <%= f.password_field :password, required: true %>
+    </div>
+    <div class="field">
+      <%= f.label :password_confirmation, "パスワード確認" %>
+      <%= f.password_field :password_confirmation, required: true %>
+    </div>
+    <div class="actions">
+      <%= f.submit "アカウントを有効化" %>
+    </div>
+  <% end %>
+  

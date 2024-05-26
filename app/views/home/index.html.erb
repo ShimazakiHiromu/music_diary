@@ -1,0 +1,29 @@
+<h1>ホーム</h1>
+
+<p>ここでユーザー情報を管理したり、動画一覧を表示したりすることができます。</p>
+
+<h2>ユーザー情報の変更</h2>
+<%= form_with(model: current_user, url: user_path(current_user), method: :patch, local: true) do |form| %>
+  <div>
+    <%= form.label :name, "名前" %>
+    <%= form.text_field :name %>
+  </div>
+  <div>
+    <%= form.label :email, "メールアドレス" %>
+    <%= form.email_field :email %>
+  </div>
+  <div>
+    <%= form.label :password, "パスワード" %>
+    <%= form.password_field :password %>
+  </div>
+  <div>
+    <%= form.label :password_confirmation, "パスワード確認" %>
+    <%= form.password_field :password_confirmation %>
+  </div>
+  <div>
+    <%= form.submit "更新" %>
+  </div>
+<% end %>
+
+<h2>動画一覧</h2>
+<p>ここに動画の一覧が表示されます（未実装）。</p>
