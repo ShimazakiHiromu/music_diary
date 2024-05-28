@@ -89,7 +89,7 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: "https://#{ENV['HOSTNAME']}" }
 
   # エラー発生時にメール送信の失敗をレポートする
-  config.action_mailer.raise_delivery *誤送信エラー* = true
+  config.action_mailer.raise_delivery_errors = true
 
   # SSLを通じたアクセスを強制する（既に設定されている場合はこれを無視）
   config.force_ssl = true
