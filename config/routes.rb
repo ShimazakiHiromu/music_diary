@@ -18,6 +18,11 @@ Rails.application.routes.draw do
     collection do
       get 'date/:date', to: 'diaries#redirect_to_diary_or_new', as: :redirect_to_diary_or_new
     end
+    resources :videos, only: [] do
+      member do
+        get 'status', to: 'videos#status'  # ここにビデオのステータスをチェックするためのルートを追加
+      end
+    end
   end
 
   get "up" => "rails/health#show", as: :rails_health_check

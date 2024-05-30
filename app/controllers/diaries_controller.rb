@@ -27,22 +27,30 @@ class DiariesController < ApplicationController
   def create
     @diary = current_user.diaries.new(diary_params)
     if @diary.save
+      @diary.videos.each do |video|
+        VideoConverterJob.perform_later(video) if video.video_file.content_type == 'video/quicktime'
+      end
       redirect_to diary_path(@diary), notice: '日記が作成されました。'
     else
       flash[:alert] = '日記の作成に失敗しました。'
-      @diary = current_user.diaries.new(date: params[:diary][:date]) # 日付を再セット
       render :new
     end
   end
 
   def update
-    if (@diary.content.present? || @diary.videos.any?(&:attached?)) && @diary.update(diary_params)
+    if @diary.update(diary_params)
+      @diary.videos.each do |video|
+        if video.video_file.attached? && video.video_file.content_type == 'video/quicktime'
+          VideoConverterJob.perform_later(video)
+        end
+      end
       redirect_to diary_path(@diary), notice: '日記が更新されました。'
     else
       flash[:alert] = '日記の更新に失敗しました。'
       render :edit
     end
   end
+  
 
   def destroy
     @diary.destroy
