@@ -13,6 +13,10 @@ ENV RAILS_ENV="production" \
     BUNDLE_PATH="/usr/local/bundle" \
     BUNDLE_WITHOUT="development"
 
+# Install packages needed for deployment and ffmpeg
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y curl libvips postgresql-client ffmpeg && \
+    rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Throw-away build stage to reduce size of final image
 FROM base as build
@@ -24,7 +28,7 @@ RUN apt-get update -qq && \
 # Install JavaScript dependencies
 ARG NODE_VERSION=20.12.2
 ARG YARN_VERSION=1.22.22
-ENV PATH=/usr/local/node/bin:$PATH
+ENV PATH=/usr/local/node/bin:$Path
 RUN curl -sL https://github.com/nodenv/node-build/archive/master.tar.gz | tar xz -C /tmp/ && \
     /tmp/node-build-master/bin/node-build "${NODE_VERSION}" /usr/local/node && \
     npm install -g yarn@$YARN_VERSION && \
@@ -47,16 +51,10 @@ COPY . .
 RUN bundle exec bootsnap precompile app/ lib/
 
 # Precompiling assets for production without requiring secret RAILS_MASTER_KEY
-RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
-
+RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precaompile
 
 # Final stage for app image
 FROM base
-
-# Install packages needed for deployment
-RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl libvips postgresql-client && \
-    rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Copy built artifacts: gems, application
 COPY --from=build /usr/local/bundle /usr/local/bundle
