@@ -1,64 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Music Diary App - FullCalendar</title>
-  <link href='https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap' rel='stylesheet'>
-  <link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/main.min.css' rel='stylesheet' />
-  <style>
-    html, body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      font-family: 'Roboto', sans-serif;
-      background-color: #f8f9fa;
-      color: #343a40;
-    }
-
-    #calendar {
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 0 10px;
-    }
-  </style>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>  <!-- CSSの読み込み -->
 </head>
 <body>
   <div id="calendar" data-dates='<%= @diary_dates.to_json %>'></div>
-  <script defer src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
-  <script defer>
-    document.addEventListener('DOMContentLoaded', function() {
-      var calendarEl = document.getElementById('calendar');
-      var diaryDates = JSON.parse(calendarEl.dataset.dates);
-    
-      var calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth',
-        locale: 'ja',
-        height: 'auto',
-        firstDay: 1,
-        headerToolbar: {
-          left: 'dayGridMonth,listMonth',
-          center: 'title',
-          right: 'today prev,next'
-        },
-        buttonText: {
-          today: '今月',
-          month: '月',
-          list: 'リスト'
-        },
-        noEventsContent: 'スケジュールはありません',
-        dateClick: function(info) {
-          window.location.href = `/diaries/date/${info.dateStr}`;  // サーバーにリクエストを送る
-        },
-        events: diaryDates.map(date => ({
-          title: '🎵',
-          start: date,
-          display: 'background'
-        }))
-      });
-    
-      calendar.render();
-    });
-  </script>
+  <%= javascript_include_tag 'application', 'data-turbo-track': 'reload', defer: true %>  <!-- esbuildでバンドルされたJavaScriptの読み込み -->
 </body>
 </html>

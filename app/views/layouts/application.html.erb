@@ -4,19 +4,18 @@
   <title>Music Diary App</title>
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
-  <%= stylesheet_link_tag 'application.bootstrap', media: 'all', 'data-turbo-track': 'reload' %>
-  <%= javascript_include_tag 'application', 'data-turbo-track': 'reload', defer: true %>  
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbo-track': 'reload', defer: true %>
 </head>
 <body>
   <%= render 'layouts/header' %>
 
-  <div class="wrapper"> 
-    <div class="content"> 
+  <div class="wrapper">
+    <div class="content">
       <%= render 'layouts/flash' %>
-      <%= yield %> 
+      <%= yield %>
     </div>
     <%= render 'layouts/footer' %>
   </div>
 </body>
-
 </html>
