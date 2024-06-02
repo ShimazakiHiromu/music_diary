@@ -1,6 +1,6 @@
 class DiariesController < ApplicationController
   before_action :require_login
-  before_action :set_diary, only: [:show, :edit, :update, :destroy]
+  before_action :set_diary, only: [:show, :edit, :update, :destroy, :processing]
 
   def index
     @diaries = current_user.diaries
@@ -15,7 +15,7 @@ class DiariesController < ApplicationController
 
   def new
     @diary = current_user.diaries.new(date: params[:date].to_date)
-    2.times { @diary.videos.build }  # 2つの動画オブジェクトを追加
+    2.times { @diary.videos.build }
   rescue ArgumentError
     @diary = current_user.diaries.new
   end
@@ -27,15 +27,18 @@ class DiariesController < ApplicationController
   def create
     @diary = current_user.diaries.new(diary_params)
     if @diary.save
-      @diary.videos.each do |video|
-        VideoConverterJob.perform_later(video) if video.video_file.content_type == 'video/quicktime'
+      process_videos(@diary)
+      if @diary.videos.any? { |video| video.conversion_status == "processing" }
+        redirect_to processing_diary_path(@diary)  # ビデオ変換待機ページにリダイレクト
+      else
+        redirect_to diary_path(@diary)  # 全てのビデオが即座に変換されていれば、日記の詳細ページにリダイレクト
       end
-      redirect_to diary_path(@diary), notice: '日記が作成されました。'
     else
       flash[:alert] = '日記の作成に失敗しました。'
       render :new
     end
   end
+  
 
   def update
     if @diary.update(diary_params)
@@ -44,13 +47,12 @@ class DiariesController < ApplicationController
           VideoConverterJob.perform_later(video)
         end
       end
-      redirect_to diary_path(@diary), notice: '日記が更新されました。'
+      redirect_to diary_path(@diary)  # 日記の詳細ページに直接リダイレクト
     else
       flash[:alert] = '日記の更新に失敗しました。'
       render :edit
     end
   end
-  
 
   def destroy
     @diary.destroy
@@ -74,5 +76,16 @@ class DiariesController < ApplicationController
 
   def diary_params
     params.require(:diary).permit(:date, :content, videos_attributes: [:id, :video_file, :artist_name, :song_title, :status, :_destroy])
+  end
+
+  def process_videos(diary)
+    diary.videos.each do |video|
+      if video.video_file.content_type != 'video/mp4'
+        VideoConverterJob.perform_later(video)
+        video.update(conversion_status: "processing")
+      else
+        video.update(conversion_status: "converted")
+      end
+    end
   end
 end
