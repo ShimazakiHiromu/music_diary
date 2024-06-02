@@ -12,7 +12,7 @@ class VideoConverterJob < ApplicationJob
     path_to_converted = "#{tempfile.path}.mp4"
 
     # ffmpegを使用して動画を変換
-    if system "ffmpeg -i #{Shellwords.escape(tempfile.path)} -vcodec h264 -acodec aac #{Shellwords.escape(path_to_converted)} > conversion.log 2>&1"
+    if system "ffmpeg -i #{Shellwords.escape(tempfile.path)} -vcodec h264 -acodec aac #{Shellwords.escape(path_to_converted)}"
       # 変換後のファイルをアタッチ
       File.open(path_to_converted, 'rb') do |file|
         video.video_file.attach(
@@ -24,12 +24,12 @@ class VideoConverterJob < ApplicationJob
       # ステータスを 'converted' に更新
       video.update(conversion_status: 'converted')
     else
-      # 変換失敗のログを記録
+      # 変換失敗のログを記録（方法はエラーハンドリングに依存）
       Rails.logger.error "Failed to convert video: #{video.id}"
-      Rails.logger.error "FFmpeg Error: #{File.read('conversion.log', encoding: "ASCII-8BIT")}"
+      # ここにFFmpegのエラー内容を記録する方法を追加
     end
 
-    # 一時ファイルの後始末
+    # 一時ファイルの削除
     tempfile.unlink
     File.delete(path_to_converted) if File.exist?(path_to_converted)
   end
