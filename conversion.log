@@ -9,7 +9,7 @@ ffmpeg version 7.0.1 Copyright (c) 2000-2024 the FFmpeg developers
   libswscale      8.  1.100 /  8.  1.100
   libswresample   5.  1.100 /  5.  1.100
   libpostproc    58.  1.100 / 58.  1.100
-Input #0, mov,mp4,m4a,3gp,3g2,mj2, from '/Users/shimazakihiromu/Desktop/music_diary/storage/45/wf/45wfxmcb5h4f8ftxou20lm8lbqyj':
+Input #0, mov,mp4,m4a,3gp,3g2,mj2, from '/var/folders/zl/098ms49j24n3f5cv4s9xbvpc0000gn/T/video20240602-49310-6bepv4.MOV':
   Metadata:
     major_brand     : qt  
     minor_version   : 0
@@ -48,10 +48,10 @@ Stream mapping:
   Stream #0:1 -> #0:0 (h264 (native) -> h264 (libx264))
   Stream #0:0 -> #0:1 (aac (native) -> aac (native))
 Press [q] to stop, [?] for help
-[libx264 @ 0x135f083e0] using cpu capabilities: ARMv8 NEON
-[libx264 @ 0x135f083e0] profile High, level 4.2, 4:2:0, 8-bit
-[libx264 @ 0x135f083e0] 264 - core 164 r3108 31e19f9 - H.264/MPEG-4 AVC codec - Copyleft 2003-2023 - http://www.videolan.org/x264.html - options: cabac=1 ref=3 deblock=1:0:0 analyse=0x3:0x113 me=hex subme=7 psy=1 psy_rd=1.00:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=1 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-2 threads=18 lookahead_threads=3 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=3 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=40 rc=crf mbtree=1 crf=23.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:1.00
-Output #0, mp4, to '/Users/shimazakihiromu/Desktop/music_diary/storage/45/wf/45wfxmcb5h4f8ftxou20lm8lbqyj.mp4':
+[libx264 @ 0x12b705690] using cpu capabilities: ARMv8 NEON
+[libx264 @ 0x12b705690] profile High, level 4.2, 4:2:0, 8-bit
+[libx264 @ 0x12b705690] 264 - core 164 r3108 31e19f9 - H.264/MPEG-4 AVC codec - Copyleft 2003-2023 - http://www.videolan.org/x264.html - options: cabac=1 ref=3 deblock=1:0:0 analyse=0x3:0x113 me=hex subme=7 psy=1 psy_rd=1.00:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=1 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-2 threads=18 lookahead_threads=3 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=3 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=40 rc=crf mbtree=1 crf=23.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:1.00
+Output #0, mp4, to '/var/folders/zl/098ms49j24n3f5cv4s9xbvpc0000gn/T/video20240602-49310-6bepv4.MOV.mp4':
   Metadata:
     major_brand     : qt  
     minor_version   : 0
@@ -76,24 +76,24 @@ Output #0, mp4, to '/Users/shimazakihiromu/Desktop/music_diary/storage/45/wf/45w
         handler_name    : Core Media Audio
         vendor_id       : [0][0][0][0]
         encoder         : Lavc61.3.100 aac
-frame=   16 fps=0.0 q=31.0 size=       0KiB time=00:00:00.23 bitrate=   1.6kbits/s speed=0.462x    frame=   74 fps= 73 q=31.0 size=    1024KiB time=00:00:01.20 bitrate=6983.8kbits/s speed=1.19x    frame=  149 fps= 99 q=31.0 size=    2048KiB time=00:00:02.45 bitrate=6841.2kbits/s speed=1.62x    [out#0/mp4 @ 0x600000ef80c0] video:2716KiB audio:58KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: 0.263233%
-frame=  223 fps=122 q=-1.0 Lsize=    2782KiB time=00:00:03.68 bitrate=6180.2kbits/s speed=2.01x    
-[libx264 @ 0x135f083e0] frame I:2     Avg QP:23.87  size: 37549
-[libx264 @ 0x135f083e0] frame P:82    Avg QP:24.72  size: 22007
-[libx264 @ 0x135f083e0] frame B:139   Avg QP:26.38  size:  6480
-[libx264 @ 0x135f083e0] consecutive B-frames:  7.6% 26.9%  2.7% 62.8%
-[libx264 @ 0x135f083e0] mb I  I16..4: 34.7% 60.9%  4.4%
-[libx264 @ 0x135f083e0] mb P  I16..4: 14.9% 18.5%  1.5%  P16..4: 29.6%  5.9%  2.3%  0.0%  0.0%    skip:27.4%
-[libx264 @ 0x135f083e0] mb B  I16..4:  1.9%  2.0%  0.2%  B16..8: 33.5%  2.0%  0.2%  direct: 1.3%  skip:58.9%  L0:39.9% L1:57.1% BI: 3.0%
-[libx264 @ 0x135f083e0] 8x8 transform intra:53.0% inter:82.1%
-[libx264 @ 0x135f083e0] coded y,uvDC,uvAC intra: 15.6% 26.0% 3.3% inter: 6.1% 7.2% 0.2%
-[libx264 @ 0x135f083e0] i16 v,h,dc,p: 19% 57% 11% 12%
-[libx264 @ 0x135f083e0] i8 v,h,dc,ddl,ddr,vr,hd,vl,hu: 20% 30% 43%  1%  1%  1%  1%  1%  2%
-[libx264 @ 0x135f083e0] i4 v,h,dc,ddl,ddr,vr,hd,vl,hu: 19% 39% 11%  5%  4%  4%  6%  6%  6%
-[libx264 @ 0x135f083e0] i8c dc,h,v,p: 56% 31% 11%  2%
-[libx264 @ 0x135f083e0] Weighted P-Frames: Y:0.0% UV:0.0%
-[libx264 @ 0x135f083e0] ref P L0: 70.4% 15.2% 10.7%  3.8%
-[libx264 @ 0x135f083e0] ref B L0: 89.5%  8.9%  1.6%
-[libx264 @ 0x135f083e0] ref B L1: 97.2%  2.8%
-[libx264 @ 0x135f083e0] kb/s:5978.59
-[aac @ 0x135f79f40] Qavg: 211.792
+frame=   16 fps=0.0 q=31.0 size=       0KiB time=00:00:00.23 bitrate=   1.6kbits/s speed=0.466x    frame=   72 fps= 72 q=31.0 size=    1024KiB time=00:00:01.16 bitrate=7183.4kbits/s speed=1.16x    frame=  141 fps= 94 q=31.0 size=    2048KiB time=00:00:02.31 bitrate=7234.9kbits/s speed=1.54x    [out#0/mp4 @ 0x6000037100c0] video:2716KiB audio:58KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: 0.263233%
+frame=  223 fps=118 q=-1.0 Lsize=    2782KiB time=00:00:03.68 bitrate=6180.2kbits/s speed=1.94x    
+[libx264 @ 0x12b705690] frame I:2     Avg QP:23.87  size: 37549
+[libx264 @ 0x12b705690] frame P:82    Avg QP:24.72  size: 22007
+[libx264 @ 0x12b705690] frame B:139   Avg QP:26.38  size:  6480
+[libx264 @ 0x12b705690] consecutive B-frames:  7.6% 26.9%  2.7% 62.8%
+[libx264 @ 0x12b705690] mb I  I16..4: 34.7% 60.9%  4.4%
+[libx264 @ 0x12b705690] mb P  I16..4: 14.9% 18.5%  1.5%  P16..4: 29.6%  5.9%  2.3%  0.0%  0.0%    skip:27.4%
+[libx264 @ 0x12b705690] mb B  I16..4:  1.9%  2.0%  0.2%  B16..8: 33.5%  2.0%  0.2%  direct: 1.3%  skip:58.9%  L0:39.9% L1:57.1% BI: 3.0%
+[libx264 @ 0x12b705690] 8x8 transform intra:53.0% inter:82.1%
+[libx264 @ 0x12b705690] coded y,uvDC,uvAC intra: 15.6% 26.0% 3.3% inter: 6.1% 7.2% 0.2%
+[libx264 @ 0x12b705690] i16 v,h,dc,p: 19% 57% 11% 12%
+[libx264 @ 0x12b705690] i8 v,h,dc,ddl,ddr,vr,hd,vl,hu: 20% 30% 43%  1%  1%  1%  1%  1%  2%
+[libx264 @ 0x12b705690] i4 v,h,dc,ddl,ddr,vr,hd,vl,hu: 19% 39% 11%  5%  4%  4%  6%  6%  6%
+[libx264 @ 0x12b705690] i8c dc,h,v,p: 56% 31% 11%  2%
+[libx264 @ 0x12b705690] Weighted P-Frames: Y:0.0% UV:0.0%
+[libx264 @ 0x12b705690] ref P L0: 70.4% 15.2% 10.7%  3.8%
+[libx264 @ 0x12b705690] ref B L0: 89.5%  8.9%  1.6%
+[libx264 @ 0x12b705690] ref B L1: 97.2%  2.8%
+[libx264 @ 0x12b705690] kb/s:5978.59
+[aac @ 0x12cb76840] Qavg: 211.792
