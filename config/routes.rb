@@ -15,12 +15,15 @@ Rails.application.routes.draw do
   end
 
   resources :diaries do
+    member do
+      get 'processing', to: 'diaries#processing'
+    end
     collection do
       get 'date/:date', to: 'diaries#redirect_to_diary_or_new', as: :redirect_to_diary_or_new
     end
     resources :videos, only: [] do
       member do
-        get 'status', to: 'videos#status'  # ここにビデオのステータスをチェックするためのルートを追加
+        get 'status', to: 'videos#status', as: 'status_video'
       end
     end
   end

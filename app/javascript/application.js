@@ -3,5 +3,5 @@ import "@hotwired/turbo-rails"
 import "./controllers"
 import "bootstrap"
 import "./flash_messages" 
-
+import "./status_checker" 
 

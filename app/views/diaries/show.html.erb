@@ -1,5 +1,7 @@
 <h1><%= @diary.date.strftime('%Y年%m月%d日') %></h1>
 
+<input type="hidden" id="diaryId" value="<%= @diary.id %>">
+
 <% if @diary.videos.any? %>
   <% @diary.videos.each_with_index do |video, index| %>
     <div style="margin-bottom: 20px;">
@@ -29,3 +31,7 @@
   <%= link_to '編集', edit_diary_path(@diary), class: "btn btn-primary" %>
   <%= button_to '削除', diary_path(@diary), method: :delete, data: { turbo: false, confirm: '本当に削除しますか？' }, class: "btn btn-danger" %>
 </div>
+
+
+
+

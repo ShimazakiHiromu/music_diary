@@ -1,0 +1,10 @@
+<% if @diary.videos.any? %>
+  <% @diary.videos.each do |video| %>
+    <div class="videoStatusChecker" data-check-url="<%= status_video_diary_video_path(@diary, video) %>" data-redirect-url="<%= diary_path(@diary) %>">
+      <h1>動画を処理中です...</h1>
+      <div class="loader"></div> <!-- ローディングインジケーターを表示 -->
+    </div>
+  <% end %>
+<% else %>
+  <script>window.location.href = "<%= diary_path(@diary) %>";</script>
+<% end %>

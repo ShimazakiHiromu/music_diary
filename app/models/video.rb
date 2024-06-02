@@ -3,8 +3,9 @@ class Video < ApplicationRecord
   has_one_attached :video_file
   
   enum status: { practicing: 0, completed: 1, daily_routine: 2 }
+  enum conversion_status: { pending: 0, processing: 1, converted: 2 }
 
   def converted?
-    video_file.content_type == 'video/mp4'
+    conversion_status == 'converted'
   end
 end
