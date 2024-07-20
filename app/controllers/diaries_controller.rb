@@ -24,15 +24,20 @@ class DiariesController < ApplicationController
     (2 - @diary.videos.size).times { @diary.videos.build }
   end
 
+
   def create
     @diary = current_user.diaries.new(diary_params)
     if @diary.save
-      process_videos(@diary)
-      if @diary.videos.any? { |video| video.conversion_status == "processing" }
-        redirect_to processing_diary_path(@diary)  # ビデオ変換待機ページにリダイレクト
-      else
-        redirect_to diary_path(@diary)  # 全てのビデオが即座に変換されていれば、日記の詳細ページにリダイレクト
+      @diary.videos.each do |video|
+        if video.video_file.attached?
+          success, file_key = S3Uploader.upload(video.video_file, video.video_file.filename.to_s)
+          if success
+            # 署名付きURLを生成し、適切な場所に保存
+            video.update(url: generate_presigned_url(file_key))
+          end
+        end
       end
+      redirect_to diary_path(@diary), notice: 'Diary and videos were successfully created.'
     else
       flash[:alert] = '日記の作成に失敗しました。'
       render :new
@@ -40,14 +45,10 @@ class DiariesController < ApplicationController
   end
   
 
+  
   def update
     if @diary.update(diary_params)
-      @diary.videos.each do |video|
-        if video.video_file.attached? && video.video_file.content_type == 'video/quicktime'
-          VideoConverterJob.perform_later(video)
-        end
-      end
-      redirect_to diary_path(@diary)  # 日記の詳細ページに直接リダイレクト
+      redirect_to diary_path(@diary)
     else
       flash[:alert] = '日記の更新に失敗しました。'
       render :edit
@@ -69,6 +70,14 @@ class DiariesController < ApplicationController
   end
 
   private
+
+  def generate_presigned_url(file_key)
+    s3_client = Aws::S3::Client.new(region: 'ap-northeast-1')
+    signer = Aws::S3::Presigner.new(client: s3_client)
+    url = signer.presigned_url(:get_object, bucket: 'musicdiary-bucket2', key: file_key, expires_in: 3600)  # 1時間有効
+    url
+  end
+
 
   def set_diary
     @diary = current_user.diaries.find_by(id: params[:id])

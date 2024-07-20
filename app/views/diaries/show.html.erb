@@ -7,9 +7,13 @@
     <div style="margin-bottom: 20px;">
       <h3>動画 <%= index + 1 %></h3>
       <% if video.video_file.attached? %>
-        <!-- 動画の表示。適切なHTML5 videoタグを使用しています -->
+        <!-- 動画の表示。ステータスがconvertedなら変換後のURLを使用 -->
         <video width="320" height="240" controls>
-          <source src="<%= url_for(video.video_file) %>" type="<%= video.video_file.content_type %>">
+          <% if video.converted? %>
+            <source src="<%= video.url %>" type="video/mp4"> <!-- 変換されたビデオのMP4 URLを使用 -->
+          <% else %>
+            <source src="<%= url_for(video.video_file) %>" type="<%= video.video_file.content_type %>">
+          <% end %>
           Your browser does not support the video tag.
         </video>
       <% end %>
@@ -17,7 +21,7 @@
       <!-- 動画の詳細情報の表示 -->
       <p>アーティスト名: <%= video.artist_name.presence || '未設定' %></p>
       <p>曲名: <%= video.song_title.presence || '未設定' %></p>
-      <p>ステータス: <%= video.status.humanize %></p>
+      <p>ステータス: <%= video.status.humanize %> (変換ステータス: <%= video.conversion_status.humanize %>)</p>
     </div>
   <% end %>
 <% else %>
@@ -31,7 +35,3 @@
   <%= link_to '編集', edit_diary_path(@diary), class: "btn btn-primary" %>
   <%= button_to '削除', diary_path(@diary), method: :delete, data: { turbo: false, confirm: '本当に削除しますか？' }, class: "btn btn-danger" %>
 </div>
-
-
-
-

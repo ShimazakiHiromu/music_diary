@@ -25,6 +25,8 @@ Rails.application.routes.draw do
       member do
         get 'status', to: 'videos#status', as: 'status_video'
       end
+      # ここでメソッドのエンドポイントを設定
+      post 'media_convert_callback/:job_id', to: 'videos#media_convert_callback', as: 'media_convert_callback'
     end
   end
 

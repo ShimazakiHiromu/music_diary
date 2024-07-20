@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_01_024212) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_19_042458) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -78,7 +78,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_01_024212) do
     t.string "artist_name"
     t.string "song_title"
     t.integer "conversion_status", default: 0
+    t.string "url"
+    t.string "job_id"
     t.index ["diary_id"], name: "index_videos_on_diary_id"
+    t.index ["job_id"], name: "index_videos_on_job_id", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
