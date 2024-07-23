@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_19_042458) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_23_001158) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -80,6 +80,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_19_042458) do
     t.integer "conversion_status", default: 0
     t.string "url"
     t.string "job_id"
+    t.string "media_convert_job_id"
     t.index ["diary_id"], name: "index_videos_on_diary_id"
     t.index ["job_id"], name: "index_videos_on_job_id", unique: true
   end
