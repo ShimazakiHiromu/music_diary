@@ -1,16 +1,17 @@
 require 'aws-sdk-s3'
 
 class S3Uploader
-  def self.upload(attachment, file_name)
+  # diary_id と video_id を追加
+  def self.upload(attachment, file_name, diary_id, video_id)
     s3 = Aws::S3::Resource.new(region: 'ap-northeast-1')
-    obj = s3.bucket('musicdiary-bucket').object("upload/#{file_name}")
+    # パスに diary_id と video_id を含める
+    obj = s3.bucket('musicdiary-bucket').object("diaries/#{diary_id}/videos/#{video_id}/#{file_name}")
 
     # ファイルを開いてS3にアップロード
     attachment.open do |file|
       obj.upload_file(file.path)
     end
     # アップロードが成功したかどうかを判断するロジックが必要
-    # 以下は一例です。実際の条件に応じて適切な判定を追加してください。
     if obj.exists?
       return true, obj.key
     else

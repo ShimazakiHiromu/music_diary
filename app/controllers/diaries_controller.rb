@@ -30,9 +30,10 @@ class DiariesController < ApplicationController
     if @diary.save
       @diary.videos.each do |video|
         if video.video_file.attached?
-          success, file_key = S3Uploader.upload(video.video_file, video.video_file.filename.to_s)
+          # diary_idとvideo_idを動的に取得
+          success, file_key = S3Uploader.upload(video.video_file, video.video_file.filename.to_s, @diary.id, video.id)
           if success
-            # 署名付きURLを生成し、適切な場所に保存
+            # アップロード成功後、署名付きURLを生成してvideoのURLを更新
             video.update(url: generate_presigned_url(file_key))
           end
         end
@@ -43,6 +44,8 @@ class DiariesController < ApplicationController
       render :new
     end
   end
+  
+
   
 
   
